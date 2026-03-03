@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr. [Your Name] — Researcher &amp; Consultant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1D3557; --charcoal: #2E2E2E; --teal: #264653;
+      --gold: #C9A227; --ivory: #F8F9FA; --lightgray: #E9ECEF;
+      --mid: #6B7280; --ease: 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--ivory); color: var(--charcoal); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 5vw; background: rgba(248,249,250,0.93); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color var(--ease), box-shadow var(--ease); }
+    nav.scrolled { border-color: var(--lightgray); box-shadow: 0 2px 24px rgba(29,53,87,0.06); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; color: var(--navy); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; opacity: 0.6; transition: opacity var(--ease), color var(--ease); }
+    .nav-links a:hover { opacity: 1; color: var(--navy); }
+
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; padding: 0 5vw; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 60% 80% at 75% 50%, rgba(38,70,83,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 90% 10%, rgba(201,162,39,0.06) 0%, transparent 55%); }
+    .hero-line { position: absolute; left: 50%; top: 15%; bottom: 15%; width: 1px; background: var(--lightgray); opacity: 0.8; }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+    .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; color: var(--navy); line-height: 1.05; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.35s forwards; }
+    .hero-name em { font-style: italic; color: var(--teal); }
+    .hero-tagline { font-size: 1.05rem; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 38ch; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.5s forwards; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.85rem 2rem; background: var(--navy); color: var(--ivory); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: background var(--ease), transform var(--ease); opacity: 0; animation: fadeUp 0.8s 0.65s forwards; }
+    .hero-cta:hover { background: var(--teal); transform: translateY(-2px); }
+    .hero-cta svg { transition: transform var(--ease); }
+    .hero-cta:hover svg { transform: translateX(4px); }
+    .hero-credentials { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.5rem; opacity: 0; animation: fadeIn 1s 0.8s forwards; }
+    .credential-item { padding: 1.25rem 1.5rem; border-left: 2px solid var(--lightgray); transition: border-color var(--ease); }
+    .credential-item:hover { border-color: var(--gold); }
+    .credential-org { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: var(--navy); margin-bottom: 0.2rem; }
+    .credential-role { font-size: 0.82rem; color: var(--mid); font-weight: 300; }
+
+    section { padding: 7rem 5vw; }
+    .section-label { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; color: var(--navy); line-height: 1.15; margin-bottom: 2rem; }
+    .section-title em { font-style: italic; color: var(--teal); }
+    .divider { width: 3rem; height: 1px; background: var(--gold); margin-bottom: 3rem; }
+
+    #about { background: white; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start; }
+    .about-left { position: sticky; top: 7rem; }
+    .about-text p { font-size: 1.05rem; line-height: 1.9; color: var(--charcoal); font-weight: 300; margin-bottom: 1.5rem; }
+    .about-text p:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; line-height: 1.6; color: var(--teal); }
+    .expertise-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .tag { padding: 0.4rem 1rem; border: 1px solid var(--lightgray); font-size: 0.78rem; color: var(--navy); letter-spacing: 0.05em; transition: border-color var(--ease), background var(--ease); cursor: default; }
+    .tag:hover { border-color: var(--gold); background: rgba(201,162,39,0.04); }
+
+    #work { background: var(--ivory); }
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 1rem; }
+    .work-card { background: white; padding: 2.5rem 2rem; transition: box-shadow var(--ease), transform var(--ease); position: relative; overflow: hidden; }
+    .work-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform var(--ease); }
+    .work-card:hover { box-shadow: 0 8px 32px rgba(29,53,87,0.08); transform: translateY(-3px); }
+    .work-card:hover::before { transform: scaleX(1); }
+    .work-card-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--lightgray); margin-bottom: 1rem; line-height: 1; }
+    .work-card-title { font-size: 1rem; font-weight: 500; color: var(--navy); margin-bottom: 0.75rem; }
+    .work-card-desc { font-size: 0.88rem; color: var(--mid); line-height: 1.7; font-weight: 300; }
+    .clients-row { display: flex; align-items: center; margin-top: 4rem; border-top: 1px solid var(--lightgray); border-bottom: 1px solid var(--lightgray); padding: 1.5rem 0; }
+    .clients-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); white-space: nowrap; padding-right: 2.5rem; border-right: 1px solid var(--lightgray); margin-right: 2.5rem; flex-shrink: 0; }
+    .clients-list { display: flex; gap: 3rem; align-items: center; flex-wrap: wrap; }
+    .client-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: var(--navy); opacity: 0.4; transition: opacity var(--ease); cursor: default; }
+    .client-name:hover { opacity: 0.9; }
+
+    #research { background: var(--navy); }
+    #research .section-title { color: var(--ivory); }
+    #research .divider { background: rgba(201,162,39,0.4); }
+
+    .pub-cluster { margin-bottom: 4rem; }
+    .cluster-header { display: flex; align-items: center; gap: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .cluster-icon { width: 2.4rem; height: 2.4rem; border: 1px solid rgba(201,162,39,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); flex-shrink: 0; }
+    .cluster-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; font-weight: 500; }
+    .cluster-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--ivory); }
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); transition: padding-left var(--ease); }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-item:hover { padding-left: 0.75rem; }
+    .pub-meta { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; flex-wrap: wrap; }
+    .pub-type { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(248,249,250,0.3); font-weight: 500; }
+    .pub-year { font-size: 0.68rem; color: var(--gold); font-weight: 500; letter-spacing: 0.08em; }
+    .pub-status { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; padding: 0.12rem 0.55rem; border-radius: 2px; }
+    .status-accepted { background: rgba(38,70,83,0.7); color: #7dd3c8; }
+    .status-review { background: rgba(201,162,39,0.13); color: var(--gold); }
+    .status-rr { background: rgba(201,162,39,0.08); color: rgba(201,162,39,0.8); }
+    .pub-title { font-family: 'Cormorant Garamond', serif; font-size: 1.02rem; font-weight: 400; color: var(--ivory); line-height: 1.45; margin-bottom: 0.25rem; }
+    .pub-authors { font-size: 0.78rem; color: rgba(248,249,250,0.4); font-weight: 300; font-style: italic; margin-bottom: 0.15rem; }
+    .pub-journal { font-size: 0.78rem; color: rgba(248,249,250,0.3); font-weight: 300; }
+    .pub-doi { display: inline-block; margin-top: 0.3rem; font-size: 0.68rem; color: var(--gold); text-decoration: none; letter-spacing: 0.08em; opacity: 0.65; transition: opacity var(--ease); }
+    .pub-doi:hover { opacity: 1; }
+
+    #contact { background: white; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .contact-intro { font-size: 1.05rem; line-height: 1.9; color: var(--mid); font-weight: 300; margin-bottom: 2.5rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--navy); }
+    .contact-detail a { color: var(--navy); text-decoration: none; transition: color var(--ease); }
+    .contact-detail a:hover { color: var(--teal); }
+    .contact-icon { width: 2rem; height: 2rem; background: var(--lightgray); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cv-btn { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.85rem 2rem; background: var(--navy); color: var(--ivory); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: background var(--ease), transform var(--ease); margin-top: 2rem; }
+    .cv-btn:hover { background: var(--teal); transform: translateY(-2px); }
+    .cv-btn svg { transition: transform var(--ease); }
+    .cv-btn:hover svg { transform: translateY(2px); }
+    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); font-weight: 500; }
+    .form-input, .form-textarea { padding: 0.85rem 1rem; border: 1px solid var(--lightgray); background: var(--ivory); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--charcoal); outline: none; transition: border-color var(--ease); resize: none; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--teal); }
+    .form-textarea { min-height: 7rem; }
+    .submit-btn { padding: 0.9rem 2.5rem; background: var(--teal); color: var(--ivory); border: none; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background var(--ease), transform var(--ease); align-self: flex-start; }
+    .submit-btn:hover { background: var(--navy); transform: translateY(-2px); }
+
+    footer { background: var(--charcoal); padding: 2.5rem 5vw; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: rgba(248,249,250,0.45); }
+    .footer-note { font-size: 0.75rem; color: rgba(248,249,250,0.25); letter-spacing: 0.06em; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; padding-top: 8rem; padding-bottom: 5rem; }
+      .hero-line { display: none; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-left { position: static; }
+      .work-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .clients-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .clients-label { border-right: none; padding-right: 0; margin-right: 0; }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Dr. [Your Name]</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#research">Publications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-text">
+    <p class="hero-eyebrow">Researcher &middot; Evaluator &middot; Consultant</p>
+    <h1 class="hero-name">Dr. [First]<br><em>[Last Name]</em></h1>
+    <p class="hero-tagline">I help international organisations design better policies, measure what matters, and understand people in context &#8212; across gender, family, and social equity.</p>
+    <a href="#contact" class="hero-cta">
+      Get in touch
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="hero-credentials">
+    <div class="credential-item">
+      <div class="credential-org">University College London</div>
+      <div class="credential-role">PhD, Social Sciences</div>
+    </div>
+    <div class="credential-item">
+      <div class="credential-org">University of Oxford</div>
+      <div class="credential-role">Postdoctoral Researcher</div>
+    </div>
+    <div class="credential-item">
+      <div class="credential-org">Development Analytics</div>
+      <div class="credential-role">Research Associate &amp; Network Consultant</div>
+    </div>
+    <div class="credential-item">
+      <div class="credential-org">10+ Years</div>
+      <div class="credential-role">International Research &amp; Evaluation</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <p class="section-label">About</p>
+      <h2 class="section-title">Rigorous thinking,<br><em>human focus</em></h2>
+      <div class="divider"></div>
+      <div class="expertise-tags">
+        <span class="tag">Gender Norms</span>
+        <span class="tag">Parental Leave</span>
+        <span class="tag">Masculinities</span>
+        <span class="tag">Impact Measurement</span>
+        <span class="tag">Mixed Methods</span>
+        <span class="tag">Policy Evaluation</span>
+        <span class="tag">Family Policy</span>
+        <span class="tag">MENA &amp; Europe</span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <p>I'm a social policy researcher with over a decade of international experience spanning academic inquiry, policy evaluation, and programme design &#8212; always with people at the centre.</p>
+      <p>My work sits at the intersection of gender equality, family policy, and social change. I specialise in understanding how norms shape behaviour &#8212; and how evidence-informed policy can shift both. I bring equal rigour to quantitative frameworks and the human stories that numbers can't capture.</p>
+      <p>I've collaborated closely with institutions including UNICEF, the World Bank, EIGE, and WFP, contributing to evaluations and advisory processes in Europe and across the MENA region. Whether I'm designing an evaluation framework, analysing parental leave reform, or developing a theory of change, I aim to produce work that is both credible and genuinely useful.</p>
+      <p>I'm based in London and open to consultancy engagements, research collaborations, and advisory roles globally.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="reveal">
+    <p class="section-label">What I Do</p>
+    <h2 class="section-title">Areas of <em>expertise</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal">
+      <div class="work-card-num">01</div>
+      <div class="work-card-title">Impact Evaluation</div>
+      <div class="work-card-desc">Designing and conducting evaluations using OECD-DAC criteria across complex international programmes. From baseline to endline &#8212; with clarity at every stage.</div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-num">02</div>
+      <div class="work-card-title">Gender &amp; Family Policy</div>
+      <div class="work-card-desc">Research and advisory on parental leave systems, care policies, and gender norms &#8212; with deep expertise in European and MENA contexts.</div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-num">03</div>
+      <div class="work-card-title">Mixed-Methods Research</div>
+      <div class="work-card-desc">Combining statistical analysis (R, Stata) with qualitative depth (NVivo) to produce evidence that is both robust and textured.</div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-num">04</div>
+      <div class="work-card-title">Programme Design</div>
+      <div class="work-card-desc">Supporting organisations to build coherent theories of change, M&amp;E frameworks, and results-oriented logic models grounded in evidence.</div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-num">05</div>
+      <div class="work-card-title">Network &amp; Capacity Building</div>
+      <div class="work-card-desc">Activating and connecting research networks across institutions &#8212; translating academic insight into policy dialogue and organisational learning.</div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-num">06</div>
+      <div class="work-card-title">Advisory &amp; Consultancy</div>
+      <div class="work-card-desc">Independent advisory support for international organisations, UN agencies, and NGOs at any stage of the programme cycle.</div>
+    </div>
+  </div>
+  <div class="clients-row reveal">
+    <span class="clients-label">Selected Clients</span>
+    <div class="clients-list">
+      <span class="client-name">UNICEF</span>
+      <span class="client-name">World Bank</span>
+      <span class="client-name">EIGE</span>
+      <span class="client-name">WFP</span>
+      <span class="client-name">Development Analytics</span>
+      <span class="client-name">Oxford University</span>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="reveal">
+    <p class="section-label">Publications</p>
+    <h2 class="section-title">Research by <em>theme</em></h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="pub-cluster reveal">
+    <div class="cluster-header">
+      <span class="cluster-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </span>
+      <div>
+        <div class="cluster-label">Theme 01</div>
+        <div class="cluster-title">Work-Life Reconciliation &amp; Family Policy</div>
+      </div>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-status status-accepted">Accepted</span></div>
+        <div class="pub-title">One size fits few: The evolution of EU's work-life balance agenda over three decades</div>
+        <div class="pub-authors">Dobrotić, I. &amp; Uzunalioğlu, M.</div>
+        <div class="pub-journal">Social Politics</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-year">2026</span></div>
+        <div class="pub-title">The childcare gap in Europe: Probing policy constructions of work-life balance and parental agency</div>
+        <div class="pub-authors">Daly, M. &amp; Uzunalioğlu, M.</div>
+        <div class="pub-journal">Journal of Family Studies</div>
+        <a class="pub-doi" href="https://doi.org/10.1080/13229400.2026.2626691" target="_blank" rel="noopener">doi &#8594;</a>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-status status-review">Under review</span></div>
+        <div class="pub-title">Competing powers: An examination of the role of intra- and extra-household factors on fathers' leave take-up</div>
+        <div class="pub-authors">Uzunalioğlu, M., Valentova, M., O'Brien, M. &amp; Twamley, K.</div>
+        <div class="pub-journal">Social Sciences Research</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-status status-review">Under review</span></div>
+        <div class="pub-title">First-time fathers' parental leave take-up: New causal evidence on the interplay between policy, workplace and household</div>
+        <div class="pub-authors">Uzunalioğlu, M., Valentova, M. &amp; O'Brien, M.</div>
+        <div class="pub-journal">Social Policy and Administration</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-status status-rr">Revise &amp; resubmit</span></div>
+        <div class="pub-title">Organisational characteristics, culture and work/family boundaries: Implementing parenting-related leaves in a university context</div>
+        <div class="pub-authors">Uzunalioğlu, M., Twamley, K., Koslowski, A. &amp; O'Brien, M.</div>
+        <div class="pub-journal">Community, Work and Family</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-year">2025</span></div>
+        <div class="pub-title">(How) Does fathers' uptake of leave equalise the gendered division of childcare and housework? A review and reflection</div>
+        <div class="pub-authors">Lee, Y. &amp; Uzunalioğlu, M.</div>
+        <div class="pub-journal">International Journal of Sociology and Social Policy</div>
+        <a class="pub-doi" href="https://doi.org/10.1108/IJSSP-06-2025-0398" target="_blank" rel="noopener">doi &#8594;</a>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-year">2021</span></div>
+        <div class="pub-title">When does expanded eligibility translate into increased take-up? An examination of parental leave policy in Luxembourg</div>
+        <div class="pub-authors">Uzunalioğlu, M., Valentova, M., O'Brien, M. &amp; Genevois, A.-S.</div>
+        <div class="pub-journal">Social Inclusion 9</div>
+        <a class="pub-doi" href="https://doi.org/10.17645/si.v9i2.3787" target="_blank" rel="noopener">doi &#8594;</a>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Working Paper</span><span class="pub-year">2025</span></div>
+        <div class="pub-title">The childcare gap and its consequences: A comparative European analysis</div>
+        <div class="pub-authors">Uzunalioğlu, M.</div>
+        <div class="pub-journal">Working Paper</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Policy Report</span><span class="pub-year">Jan 2026</span></div>
+        <div class="pub-title">A review of the family-friendly policies in Jersey: The case of recent parenting-related leave policy reforms</div>
+        <div class="pub-authors">Uzunalioğlu, M.</div>
+        <div class="pub-journal">Health and Social Security Scrutiny Panel, Government of Jersey</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-cluster reveal">
+    <div class="cluster-header">
+      <span class="cluster-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </span>
+      <div>
+        <div class="cluster-label">Theme 02</div>
+        <div class="cluster-title">Family Resilience &amp; Social Inequality</div>
+      </div>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Journal Article</span><span class="pub-year">2025</span></div>
+        <div class="pub-title">Family and social resilience</div>
+        <div class="pub-authors">Bawati, A., Nieuwenhuis, R., Uzunalioğlu, M. &amp; Thaning, M.</div>
+        <div class="pub-journal">Demographic Research 52</div>
+        <a class="pub-doi" href="https://www.jstor.org/stable/48822804" target="_blank" rel="noopener">doi &#8594;</a>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Book Chapter</span><span class="pub-year">2025</span></div>
+        <div class="pub-title">Families Striving for Resilience in Croatia</div>
+        <div class="pub-authors">Dobrotić, I., Iveković-Martinis, A. &amp; Uzunalioğlu, M.</div>
+        <div class="pub-journal">Families, Welfare States and Resilience (ed. Daly, M.) &#8212; Edward Elgar</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Book Chapter</span><span class="pub-year">2025</span></div>
+        <div class="pub-title">Families Striving for Resilience in Belgium</div>
+        <div class="pub-authors">Gijbels, E., Uzunalioğlu, M., Bartova, A. &amp; Van Lancker, W.</div>
+        <div class="pub-journal">Families, Welfare States and Resilience (ed. Daly, M.) &#8212; Edward Elgar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-cluster reveal">
+    <div class="cluster-header">
+      <span class="cluster-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      </span>
+      <div>
+        <div class="cluster-label">Theme 03</div>
+        <div class="cluster-title">Gender, Governance &amp; EU Social Policy</div>
+      </div>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Book Chapter</span><span class="pub-year">2022</span></div>
+        <div class="pub-title">Research Handbook on Leave Policy: Parenting and Social Inequalities in a Global Perspective</div>
+        <div class="pub-authors">O'Brien, M. &amp; Uzunalioğlu, M.</div>
+        <div class="pub-journal">Edward Elgar (eds Dobrotić, I., Blum, S. &amp; Koslowski, A.)</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-meta"><span class="pub-type">Book Chapter</span><span class="pub-year">2024</span></div>
+        <div class="pub-title">The Administration of the European Commission</div>
+        <div class="pub-authors">Kassim, H., Connolly, S., Alayrac, P. &amp; Uzunalioğlu, M.</div>
+        <div class="pub-journal">Handbook on European Union Public Administration (ed. Brandsma, G.) &#8212; Edward Elgar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Let's work<br><em>together</em></h2>
+      <div class="divider"></div>
+      <p class="contact-intro">I'm available for consultancy, evaluation design, research collaboration, and advisory roles. I work with international organisations, UN agencies, NGOs, and academic institutions.</p>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D3557" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <a href="mailto:your@email.com">your@email.com</a>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D3557" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <span>London, United Kingdom</span>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D3557" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn Profile</a>
+      </div>
+      <a href="#" class="cv-btn">
+        Download CV
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </a>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" placeholder="Your name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Organisation</label>
+        <input type="text" class="form-input" placeholder="Your organisation" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell me about the project or opportunity..."></textarea>
+      </div>
+      <button class="submit-btn" type="button">Send message</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Dr. [Your Name]</span>
+  <span class="footer-note">London &middot; Available for international engagements</span>
+</footer>
+
+<script>
+(function() {
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    navbar.classList[window.scrollY > 40 ? 'add' : 'remove']('scrolled');
+  }, { passive: true });
+
+  var items = document.querySelectorAll('.reveal');
+  if (!window.IntersectionObserver) {
+    for (var i = 0; i < items.length; i++) { items[i].classList.add('visible'); }
+    return;
+  }
+  var io = new IntersectionObserver(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      var e = entries[i];
+      if (!e.isIntersecting) { continue; }
+      var el = e.target;
+      var delay = 0;
+      var parent = el.parentElement;
+      if (parent && parent.classList.contains('work-grid')) {
+        var kids = Array.prototype.slice.call(parent.children);
+        delay = kids.indexOf(el) * 80;
+      }
+      (function(node, ms) {
+        setTimeout(function() { node.classList.add('visible'); }, ms);
+      })(el, delay);
+      io.unobserve(el);
+    }
+  }, { threshold: 0.1 });
+  for (var j = 0; j < items.length; j++) { io.observe(items[j]); }
+})();
+</script>
+</body>
+</html>
